@@ -1,0 +1,20 @@
+﻿BakeryApp
+
+
+winexe
+C#
+.cs
+D:\downloads\BakeryApp_WPF (2)\BakeryApp\obj\Debug\
+BakeryApp
+none
+false
+DEBUG;TRACE
+D:\downloads\BakeryApp_WPF (2)\BakeryApp\App.xaml
+10724197983
+
+20-1252890931
+12802650453
+Views\MainWindow.xaml;Views\Tabs\IngredientsTab.xaml;Views\Tabs\ProductsTab.xaml;Views\Tabs\ProductionTab.xaml;Views\Tabs\SalesTab.xaml;Views\Dialogs\QuickQuantityDialog.xaml;Views\Dialogs\IngredientDialog.xaml;Views\Dialogs\ProductDialog.xaml;Views\Dialogs\ProductionDialog.xaml;Views\Dialogs\SaleDialog.xaml;
+
+False
+

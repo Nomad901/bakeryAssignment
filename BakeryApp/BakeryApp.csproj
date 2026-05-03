@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props"
+          Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>BakeryApp</RootNamespace>
+    <AssemblyName>BakeryApp</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+
+  <!-- ─── NuGet: System.Data.SqlClient ─────────────────────────── -->
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SqlClient, Version=4.8.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+               Condition="Exists('packages\System.Data.SqlClient.4.8.3\lib\net46\System.Data.SqlClient.dll')">
+      <HintPath>packages\System.Data.SqlClient.4.8.3\lib\net46\System.Data.SqlClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+
+  <!-- ─── App ─────────────────────────────────────────────────── -->
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+
+  <!-- ─── Models ──────────────────────────────────────────────── -->
+  <ItemGroup>
+    <Compile Include="Models\Ingredient.cs" />
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ProductionRecord.cs" />
+    <Compile Include="Models\SaleRecord.cs" />
+  </ItemGroup>
+
+  <!-- ─── Data ────────────────────────────────────────────────── -->
+  <ItemGroup>
+    <Compile Include="Data\DatabaseHelper.cs" />
+    <Compile Include="Data\IngredientRepository.cs" />
+    <Compile Include="Data\ProductRepository.cs" />
+    <Compile Include="Data\ProductionRepository.cs" />
+    <Compile Include="Data\SaleRepository.cs" />
+  </ItemGroup>
+
+  <!-- ─── App code-behind ─────────────────────────────────────── -->
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <!-- ─── MainWindow ──────────────────────────────────────────── -->
+  <ItemGroup>
+    <Page Include="Views\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <!-- ─── Tabs ────────────────────────────────────────────────── -->
+  <ItemGroup>
+    <Page Include="Views\Tabs\IngredientsTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="Views\Tabs\IngredientsTab.xaml.cs">
+      <DependentUpon>IngredientsTab.xaml</DependentUpon>
+    </Compile>
+
+    <Page Include="Views\Tabs\ProductsTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="Views\Tabs\ProductsTab.xaml.cs">
+      <DependentUpon>ProductsTab.xaml</DependentUpon>
+    </Compile>
+
+    <Page Include="Views\Tabs\ProductionTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="Views\Tabs\ProductionTab.xaml.cs">
+      <DependentUpon>ProductionTab.xaml</DependentUpon>
+    </Compile>
+
+    <Page Include="Views\Tabs\SalesTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="Views\Tabs\SalesTab.xaml.cs">
+      <DependentUpon>SalesTab.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <!-- ─── Dialogs ─────────────────────────────────────────────── -->
+  <ItemGroup>
+    <Page Include="Views\Dialogs\QuickQuantityDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="Views\Dialogs\QuickQuantityDialog.xaml.cs">
+      <DependentUpon>QuickQuantityDialog.xaml</DependentUpon>
+    </Compile>
+
+    <Page Include="Views\Dialogs\IngredientDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="Views\Dialogs\IngredientDialog.xaml.cs">
+      <DependentUpon>IngredientDialog.xaml</DependentUpon>
+    </Compile>
+
+    <Page Include="Views\Dialogs\ProductDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="Views\Dialogs\ProductDialog.xaml.cs">
+      <DependentUpon>ProductDialog.xaml</DependentUpon>
+    </Compile>
+
+    <Page Include="Views\Dialogs\ProductionDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="Views\Dialogs\ProductionDialog.xaml.cs">
+      <DependentUpon>ProductionDialog.xaml</DependentUpon>
+    </Compile>
+
+    <Page Include="Views\Dialogs\SaleDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="Views\Dialogs\SaleDialog.xaml.cs">
+      <DependentUpon>SaleDialog.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <!-- ─── Конфиг ──────────────────────────────────────────────── -->
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
+  <!-- NuGet targets (если используете packages.config) -->
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets"
+          Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+</Project>

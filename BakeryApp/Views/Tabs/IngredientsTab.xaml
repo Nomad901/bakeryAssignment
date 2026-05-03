@@ -1,0 +1,145 @@
+<!-- Views/Tabs/IngredientsTab.xaml -->
+<UserControl x:Class="BakeryApp.Views.Tabs.IngredientsTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="{StaticResource AppBgBrush}">
+    <Grid Margin="4,8,4,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>  <!-- Форма добавления -->
+            <RowDefinition Height="Auto"/>  <!-- Строка поиска -->
+            <RowDefinition Height="*"/>     <!-- Таблица -->
+            <RowDefinition Height="Auto"/>  <!-- Кнопки действий -->
+        </Grid.RowDefinitions>
+
+        <!-- ── ФОРМА ДОБАВЛЕНИЯ ──────────────────────────────── -->
+        <Border Grid.Row="0" Style="{StaticResource Card}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Добавить ингредиент" Style="{StaticResource SectionTitle}"/>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" MinWidth="140"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"  MinWidth="100"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"  MinWidth="110"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"  MinWidth="120"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Название -->
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Название *" Style="{StaticResource FieldLabel}"/>
+                        <TextBox x:Name="txtIngName" Height="34"/>
+                    </StackPanel>
+
+                    <!-- Ед. изм. -->
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="Ед. изм. *" Style="{StaticResource FieldLabel}"/>
+                        <ComboBox x:Name="cmbUnit" IsEditable="True" Height="34">
+                            <ComboBoxItem>кг</ComboBoxItem>
+                            <ComboBoxItem>г</ComboBoxItem>
+                            <ComboBoxItem>л</ComboBoxItem>
+                            <ComboBoxItem>мл</ComboBoxItem>
+                            <ComboBoxItem>шт</ComboBoxItem>
+                            <ComboBoxItem>упак</ComboBoxItem>
+                            <ComboBoxItem>мешок</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <!-- Количество -->
+                    <StackPanel Grid.Column="4">
+                        <TextBlock Text="Количество *" Style="{StaticResource FieldLabel}"/>
+                        <TextBox x:Name="txtIngQty" Height="34" Text="0"/>
+                    </StackPanel>
+
+                    <!-- Цена закупки -->
+                    <StackPanel Grid.Column="6">
+                        <TextBlock Text="Закупочная цена (₽)" Style="{StaticResource FieldLabel}"/>
+                        <TextBox x:Name="txtIngPrice" Height="34" Text="0"/>
+                    </StackPanel>
+
+                    <!-- Кнопка -->
+                    <StackPanel Grid.Column="8" VerticalAlignment="Bottom">
+                        <Button Content="+ Добавить"
+                                Style="{StaticResource PrimaryButton}"
+                                Height="34" MinWidth="120"
+                                Click="BtnAdd_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
+
+        <!-- ── ПОИСК ─────────────────────────────────────────── -->
+        <Border Grid.Row="1" Style="{StaticResource Card}" Margin="0,0,0,6">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Поиск:" FontSize="16" VerticalAlignment="Center" Margin="0,0,8,0"
+                           Foreground="{StaticResource TextSecondaryBrush}"/>
+                <TextBox Grid.Column="1" x:Name="txtSearch" Height="32"
+                         TextChanged="TxtSearch_TextChanged"
+                         ToolTip="Поиск по названию"/>
+                <TextBlock Grid.Column="2" x:Name="lblCount"
+                           Foreground="{StaticResource TextSecondaryBrush}"
+                           FontSize="12" VerticalAlignment="Center" Margin="12,0,0,0"/>
+            </Grid>
+        </Border>
+
+        <!-- ── ТАБЛИЦА ───────────────────────────────────────── -->
+        <DataGrid Grid.Row="2" x:Name="dgIngredients"
+                  Margin="0,0,0,8"
+                  SelectionChanged="DgIngredients_SelectionChanged">
+            <DataGrid.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"         Color="{StaticResource SelectionColor}"/>
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#3D2060"/>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}"     Color="White"/>
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="White"/>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="#"             Binding="{Binding Id}"             Width="50"  IsReadOnly="True"/>
+                <DataGridTextColumn Header="Название"      Binding="{Binding Name}"           Width="*"   IsReadOnly="True"/>
+                <DataGridTextColumn Header="Ед. изм."      Binding="{Binding Unit}"           Width="90"  IsReadOnly="True"/>
+                <DataGridTextColumn Header="Количество"    Binding="{Binding Quantity, StringFormat='{}{0:N3}'}"   Width="110" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Цена закупки ₽" Binding="{Binding PurchasePrice, StringFormat='{}{0:N2}'}" Width="130" IsReadOnly="True"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- ── КНОПКИ ДЕЙСТВИЙ ──────────────────────────────── -->
+        <Border Grid.Row="3" Style="{StaticResource Card}" Margin="0,0,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button Content="Редактировать"
+                        Style="{StaticResource NeutralButton}"
+                        x:Name="btnEdit" IsEnabled="False" Height="36"
+                        Click="BtnEdit_Click" Margin="0,0,8,0"/>
+                <Button Content="Удалить"
+                        Style="{StaticResource DangerButton}"
+                        x:Name="btnDelete" IsEnabled="False" Height="36"
+                        Click="BtnDelete_Click" Margin="0,0,24,0"/>
+
+                <Separator Width="1" Background="{StaticResource BorderBrush}" Margin="0,4,24,4"/>
+
+                <Button Content="Приход"
+                        Style="{StaticResource SuccessButton}"
+                        x:Name="btnIncoming" IsEnabled="False" Height="36"
+                        Click="BtnIncoming_Click" Margin="0,0,8,0"
+                        ToolTip="Добавить количество к остатку"/>
+                <Button Content="Расход"
+                        Style="{StaticResource WarningButton}"
+                        x:Name="btnOutgoing" IsEnabled="False" Height="36"
+                        Click="BtnOutgoing_Click"
+                        ToolTip="Уменьшить количество в остатке"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

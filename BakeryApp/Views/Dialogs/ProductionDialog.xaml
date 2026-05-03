@@ -1,0 +1,66 @@
+<!-- Views/Dialogs/ProductionDialog.xaml -->
+<Window x:Class="BakeryApp.Views.Dialogs.ProductionDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Редактировать запись производства"
+        Height="340" Width="480"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        Background="{StaticResource AppBgBrush}"
+        BorderBrush="{StaticResource BorderBrush}"
+        BorderThickness="1">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="12"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="12"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="12"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Редактировать запись о выпуске"
+                   Style="{StaticResource SectionTitle}"/>
+
+        <!-- Дата -->
+        <StackPanel Grid.Row="2">
+            <TextBlock Text="Дата *" Style="{StaticResource FieldLabel}"/>
+            <DatePicker x:Name="dpDate" Height="36" SelectedDateFormat="Short"/>
+        </StackPanel>
+
+        <!-- Продукция -->
+        <StackPanel Grid.Row="4">
+            <TextBlock Text="Продукция *" Style="{StaticResource FieldLabel}"/>
+            <ComboBox x:Name="cmbProduct" IsEditable="True" Height="36"/>
+        </StackPanel>
+
+        <!-- Количество -->
+        <StackPanel Grid.Row="6">
+            <TextBlock Text="Количество *" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="txtQty" Height="36"/>
+        </StackPanel>
+
+        <!-- Комментарий -->
+        <StackPanel Grid.Row="8">
+            <TextBlock Text="Комментарий" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="txtComment" Height="36"/>
+        </StackPanel>
+
+        <!-- Кнопки -->
+        <StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Отмена"
+                    Style="{StaticResource NeutralButton}"
+                    Height="36" MinWidth="90"
+                    Click="BtnCancel_Click" Margin="0,0,10,0"/>
+            <Button Content="Сохранить"
+                    Style="{StaticResource PrimaryButton}"
+                    Height="36" MinWidth="120"
+                    Click="BtnSave_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
